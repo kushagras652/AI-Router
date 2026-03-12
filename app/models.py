@@ -10,3 +10,5 @@ class QueryResponse(BaseModel):
     complexity_level:int
     tokens_used:int
     cost:float
+    confidence:float
+    escalated:bool

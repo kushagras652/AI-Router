@@ -4,3 +4,7 @@ langchain
 langchain-openai
 python-dotenv
 tiktoken
+faiss-cpu
+pypdf
+langchain-community
+python-multipart

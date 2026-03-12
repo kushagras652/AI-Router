@@ -15,3 +15,10 @@ def get_model(complexity_level:int):
         model=model,
         temperature=0
     ),model
+
+def get_reasoning_model():
+
+    return ChatOpenAI(
+        model=SYSTEM3_MODEL,
+        temperature=0
+    ),SYSTEM3_MODEL
