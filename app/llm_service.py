@@ -2,6 +2,9 @@ import time
 from langchain_openai import ChatOpenAI
 from app.config import DEFAULT_MODEL
 from app.classifier import classify_prompt
+from app.router import get_model
+from services.cost_calculator import calculate_cost
+from services.logger import log_query
 
 llm=ChatOpenAI(
     model=DEFAULT_MODEL,
@@ -14,13 +17,23 @@ def generate_response(prompt:str):
 
     complexity=classify_prompt(prompt)
 
+    llm,model_name=get_model(complexity)
+
     response=llm.invoke(prompt)
 
     latency=time.time()-start
 
+    tokens=response.response_metadata['token_usage']['total_tokens']
+
+    cost=calculate_cost(model_name,tokens)
+
+    log_query(prompt,model_name,complexity,latency,tokens,cost)
+
     return{
         'response':response.content,
-        'model_used':DEFAULT_MODEL,
-        'latency':round(latency,1),
-        'complexity_level':complexity
+        'model_used':model_name,
+        'latency':round(latency,2),
+        'complexity_level':complexity,
+        'tokens_used':tokens,
+        'cost':cost
     }

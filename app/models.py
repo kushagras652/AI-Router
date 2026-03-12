@@ -8,3 +8,5 @@ class QueryResponse(BaseModel):
     model_used:str
     latency:float
     complexity_level:int
+    tokens_used:int
+    cost:float
