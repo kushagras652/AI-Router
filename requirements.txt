@@ -8,3 +8,6 @@ faiss-cpu
 pypdf
 langchain-community
 python-multipart
+streamlit
+pandas
+matplotlib
