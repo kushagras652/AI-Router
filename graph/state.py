@@ -9,4 +9,5 @@ class RouterState(TypedDict):
     confidence:float
     escalated:bool
     llm:Any
+    tokens:int
 

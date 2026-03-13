@@ -65,13 +65,21 @@ Question:
 """
         
     else:
-        prompt=query
+        prompt = query
 
-        response=llm.invoke(prompt)
+    response = llm.invoke(prompt)
 
-        state['answer']=response.content
+    state["answer"] = response.content
 
-        state['tokens']=response.response_metadata['token_usage']['total_tokens']
+    metadata = response.response_metadata
+
+    if "token_usage" in metadata:
+        tokens = metadata["token_usage"]["total_tokens"]
+    else:
+        tokens = 0
+
+    state["tokens"] = tokens
+
 
     return state
 
